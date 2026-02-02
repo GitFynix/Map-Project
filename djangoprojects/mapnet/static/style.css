@@ -1,5 +1,14 @@
 
-
+:root {
+  --bg-color: #0b0e14;
+  --box-bg-color: #151a24;
+  --input-bg-color: #0f131b;
+  --border-color: #2a3142;
+  --accent-color: #00ff82;
+  --accent-hover-color: #00d96f;
+  --text-color: #ffffff;
+  --subtitle-color: #b9c0d1;
+}
 
 
 /* Register Page Styles  */ 
