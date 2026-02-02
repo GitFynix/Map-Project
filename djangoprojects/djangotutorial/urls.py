@@ -17,8 +17,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
-from mapnet.views import register  # Importiere die register-Ansicht        
+from mapnet.views import register
+      
 
 urlpatterns = [
     path('admin/', admin.site.urls),
