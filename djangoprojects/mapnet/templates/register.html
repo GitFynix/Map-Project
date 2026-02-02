@@ -12,11 +12,10 @@
     <h1>GTA V</h1>
     <p class="subtitle">Create Account</p>
 
-    <form>
-      <input type="text" placeholder="Username" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Passwort" required>
-
+    <form  method="post">
+{% csrf_token %}
+  {{ form.as_p }}
+     
       <button type="submit">REGISTER</button>
     </form>
   </div>

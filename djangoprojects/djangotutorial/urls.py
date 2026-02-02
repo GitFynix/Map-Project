@@ -11,19 +11,18 @@ Function views
 Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
+Including another URLconfclea
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
 from django.urls import path
-from mapnet.views import register
-from mapnet.views import login
+from mapnet import views
       
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', register, name='register'),  # Neue URL für die Registrierung-Seite
-    path('login/', login, name='login')   # Neue URL für die Login-Seite
-
+    path('register/', views.register, name='register'),  # Neue URL für die Registrierung-Seite
+    path('login/', views.login, name='login'),   # Neue URL für die Login-Seite
+    path('home/', views.home, name='home'),
 ]
