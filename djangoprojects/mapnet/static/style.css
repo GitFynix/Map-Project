@@ -9,7 +9,102 @@
   --subtitle-color: rgb(185, 192, 209);
 }
 
-/* asdadas */
+/* Login */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  background: rgb(11, 14, 20);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: rgb(255, 255, 255);
+}
+
+.login-box {
+  width: 320px;
+  padding: 24px;
+
+  background: rgb(21, 26, 36);
+  border: 1px solid rgb(42, 49, 66);
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.login-box h1 {
+  margin: 0 0 10px 0;
+  color: rgb(0, 255, 130);
+}
+
+.subtitle {
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: rgb(185, 192, 209);
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  background: rgb(15, 19, 27);
+  color: rgb(255, 255, 255);
+
+  border: 1px solid rgb(42, 49, 66);
+  border-radius: 8px;
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: rgb(0, 255, 130);
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+
+  background: rgb(0, 255, 130);
+  color: rgb(0, 0, 0);
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background: rgb(0, 217, 111);
+}
+
+.registerpage {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgb(0, 255, 130);
+  text-decoration: none;
+}
+
+.registerpage:hover {
+  text-decoration: underline;
+}
+
+.vergessen {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgb(0, 255, 130);
+  text-decoration: none;
+}
+
+.vergessen:hover {
+  text-decoration: underline;
+}
+  
 /* Register Page Styles  */ 
 
 * {
@@ -85,4 +180,16 @@ body {
 
 .register-box button:hover {
   background: rgb(0, 217, 111);
+}
+
+.loginpage {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgb(0, 255, 130);
+  text-decoration: none;
+}
+
+.loginpage:hover {
+  text-decoration: underline;
 }
