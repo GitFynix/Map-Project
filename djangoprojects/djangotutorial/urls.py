@@ -18,10 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mapnet.views import register
+from mapnet.views import login
       
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', register, name='register'),  # Neue URL für die Registrierung-Seite   
+    path('register/', register, name='register'),  # Neue URL für die Registrierung-Seite
+    path('login/', login, name='login')   # Neue URL für die Login-Seite
 
 ]

@@ -6,3 +6,9 @@ from django.http import HttpResponse
 # Für die Registrierung-Seite 
 def register(request):
     return render(request, 'register.html')  
+    
+def login(request):
+    return render(request, 'login.html')
+
+def home(request):
+    return HttpResponse("Willkommen bei MapNet!")
