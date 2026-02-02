@@ -1,4 +1,13 @@
-
+:root {
+  --bg-color: rgb(11, 14, 20);
+  --box-bg-color: rgb(21, 26, 36);
+  --box-border-color: rgb(42, 49, 66);
+  --input-bg-color: rgb(15, 19, 27);
+  --primary-color: rgb(0, 255, 130);
+  --primary-hover-color: rgb(0, 217, 111);
+  --text-color: rgb(255, 255, 255);
+  --subtitle-color: rgb(185, 192, 209);
+}
 
 /* asdadas */
 /* Register Page Styles  */ 
