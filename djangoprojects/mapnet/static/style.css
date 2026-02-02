@@ -81,11 +81,18 @@ body {
   background: rgb(0, 217, 111);
 }
 
-
 .vergessen {
-  
-  
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgb(0, 255, 130);
+  text-decoration: none;
 }
+
+.vergessen:hover {
+  text-decoration: underline;
+}
+  
 /* Register Page Styles  */ 
 
 * {
