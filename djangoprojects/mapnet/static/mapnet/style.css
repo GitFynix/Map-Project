@@ -1,4 +1,82 @@
-.register {
 
-    background-color: blue;
+
+
+
+/* Register Page Styles  */ 
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  background: rgb(11, 14, 20);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: rgb(255, 255, 255);
+}
+
+.register-box {
+  width: 320px;
+  padding: 24px;
+
+  background: rgb(21, 26, 36);
+  border: 1px solid rgb(42, 49, 66);
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.register-box h1 {
+  margin: 0 0 10px 0;
+  color: rgb(0, 255, 130);
+}
+
+.subtitle {
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: rgb(185, 192, 209);
+}
+
+.register-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  background: rgb(15, 19, 27);
+  color: rgb(255, 255, 255);
+
+  border: 1px solid rgb(42, 49, 66);
+  border-radius: 8px;
+  outline: none;
+}
+
+.register-box input:focus {
+  border-color: rgb(0, 255, 130);
+}
+
+.register-box button {
+  width: 100%;
+  padding: 12px;
+
+  background: rgb(0, 255, 130);
+  color: rgb(0, 0, 0);
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register-box button:hover {
+  background: rgb(0, 217, 111);
 }

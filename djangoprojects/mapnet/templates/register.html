@@ -3,13 +3,25 @@
 <head>
     
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'mapnet/style.css' %}">
 <title>Registration</title>
 </head>
 <body class="register">
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+<div class="register-box">
+    <h1>GTA V</h1>
+    <p class="subtitle">Create Account</p>
 
+    <form>
+      <input type="text" placeholder="Vorname" required>
+      <input type="text" placeholder="Nachname" required>
+      <input type="email" placeholder="Email" required>
+
+      <button type="submit">REGISTER</button>
+    </form>
+  </div>
+
+</body>
+</html>
 </body>
 </html>
