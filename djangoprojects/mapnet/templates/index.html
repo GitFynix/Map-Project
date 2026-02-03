@@ -1,10 +1,19 @@
 <!DOCTYPE html>
+
 <html>
-<head>
-    <title>GTA V Map</title>
-    {%load static%}
-    
-</head>
-<body>
+<head>Map Page</head>
+    {% load static%}
+<body class="indexpage">
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map("map", { crs: L.CRS.Simple });
+
+    const bounds = [[0, 0], [4096, 4096]];
+
+    L.imageOverlay("{% static 'gta_map.jpg' %}", bounds).addTo(map);
+    map.fitBounds(bounds);
+  </script>
 </body>
 </html>

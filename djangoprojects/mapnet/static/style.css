@@ -193,3 +193,9 @@ body {
 .loginpage:hover {
   text-decoration: underline;
 }
+
+.indexpage{
+  height: 100%;
+  margin: 0;
+}
+
