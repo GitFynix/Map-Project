@@ -22,7 +22,9 @@ from mapnet import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', views.register, name='register'),  # Neue URL für die Registrierung-Seite
-    path('login/', views.login, name='login'),   # Neue URL für die Login-Seite
-    path('index/', views.index, name='index'),
+    path('register/', views.register, name='register'), 
+    path('login/', views.login, name='login'),   
+    path('verify-code/', views.verify_code, name='verify_code'),
+    path('home/', views.index, name='home'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
 ]

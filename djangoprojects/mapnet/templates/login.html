@@ -10,17 +10,19 @@
 <body class="login-page">
 
 <div class="login-box">
-    <form>
-        <h1>GTA V</h1>
-            <p class="subtitle">Login</p>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Passwort" required>
-        
-            <div class="pwreset">
-            <button type="submit">login</button>
-            <a class="registerpage"href="http://127.0.0.1:8000/register/">Create Account</a>      
-            <a class="vergessen" href="https://youtu.be/dQw4w9WgXcQ?si=a3xGeMw7k2oqx715">forgot password</a>
-        </form>       
+    <h1>GTA V</h1>
+    <p class="subtitle">Login to your account</p>
+    <form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Password" required>
+
+  <button type="submit">login</button>
+    <a class="registerpage" href=http://127.0.0.1:8000/register/>Register</a>
+    <a class="vergessen" href=http://127.0.0.1:8000/forgotpassword>Forgot Password?</a>
+
+</form>
 </div>
 </body>
 </html>

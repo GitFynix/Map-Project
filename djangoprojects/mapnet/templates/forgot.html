@@ -1,0 +1,10 @@
+<form method="post" action="{% url 'forgot_password' %}">
+  {% csrf_token %}
+
+  <input type="email" name="email" placeholder="Your email" required>
+  <button type="submit">Send code</button>
+
+  {% if error %}
+    <p>{{ error }}</p>
+  {% endif %}
+</form>
