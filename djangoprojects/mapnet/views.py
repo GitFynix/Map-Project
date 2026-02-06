@@ -103,3 +103,21 @@ def forgot_password(request):
         return redirect("verify_code")
 
     return render(request, "forgot.html")
+
+
+    # def reset_password(request):
+    #     if request.method == "POST":
+    #         email = request.session.get("reset_email")
+    #         password = request.POST.get("password")
+
+    #         user = Location.objects.filter(email=email).first()
+    #         if not user:
+    #             return render(request, {"error": "Email not found"})
+
+    #         user.password = password
+    #         user.save()
+
+    #         request.session.pop("reset_email", None)
+    #         return redirect("login")
+
+    #     return render(request, "reset_password.html")
