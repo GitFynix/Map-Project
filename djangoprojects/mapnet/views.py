@@ -6,7 +6,7 @@ from .models import Location, Emailotp
 from .utils import send_otp
 
 
-# Registrierung (Location) + OTP senden
+# Registrierung  + OTP senden
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -18,7 +18,7 @@ def register(request):
             # OTP senden
             send_otp(user.email)
 
-            # email in session speichern für verify page
+            
             request.session["verify_email"] = user.email
 
             return redirect("verify_code")
@@ -31,7 +31,6 @@ def register(request):
 # OTP Code prüfen
 def verify_code(request):
     email = request.session.get("verify_email")
-
     if not email:
         return redirect("register")
 
@@ -39,28 +38,36 @@ def verify_code(request):
         code = request.POST.get("code")
 
         otp = Emailotp.objects.filter(email=email, code=code).order_by("-created_at").first()
-
         if not otp:
             return render(request, "verify_code.html", {"error": "Wrong code"})
-
         if timezone.now() > otp.expires_at:
             return render(request, "verify_code.html", {"error": "Code expired"})
 
-        # user verify
+        # Decide what this OTP is for
+        flow = request.session.get("otp_flow")
+
+        if flow == "reset":
+            # OTP ok -> go to reset password page
+            Emailotp.objects.filter(email=email).delete()
+            request.session.pop("verify_email", None)
+            request.session.pop("otp_flow", None)
+            return redirect("reset_password")
+
+        # normal verify (register/login)
         user = Location.objects.get(email=email)
         user.is_verified = True
         user.save()
 
-        # cleanup
         Emailotp.objects.filter(email=email).delete()
 
-     
         request.session["user_email"] = email
         request.session.pop("verify_email", None)
+        request.session.pop("otp_flow", None)
 
         return redirect("home")
 
     return render(request, "verify_code.html")
+
 
 
 def login(request):
@@ -71,7 +78,7 @@ def login(request):
         user = Location.objects.filter(email=email, password=password).first()
 
         if not user:
-            return render(request, "index.html", {"error": "Wrong email or password"})
+            return render(request, "login.html", {"error": "Wrong email or password"})
 
         if not user.is_verified:
             request.session["verify_email"] = user.email
@@ -96,28 +103,38 @@ def forgot_password(request):
 
         user = Location.objects.filter(email=email).first()
         if not user:
-            return render(request, {"error": "Email not found"})
+            return render(request, "forgot.html", {"error": "Email not found"})
 
         send_otp(email)
+        request.session["otp_flow"] = "reset"
+        request.session["verify_email"] = email
         request.session["reset_email"] = email
         return redirect("verify_code")
 
     return render(request, "forgot.html")
 
 
-    # def reset_password(request):
-    #     if request.method == "POST":
-    #         email = request.session.get("reset_email")
-    #         password = request.POST.get("password")
+def reset_password(request):
+    email = request.session.get("reset_email")
+    if not email:
+        return redirect("forgot_password")
 
-    #         user = Location.objects.filter(email=email).first()
-    #         if not user:
-    #             return render(request, {"error": "Email not found"})
+    if request.method == "POST":
+        password = request.POST.get("password")
+        password2 = request.POST.get("password2")
 
-    #         user.password = password
-    #         user.save()
+        if password != password2:
+            return render(request, "reset_password.html", {"error": "Passwords do not match"})
 
-    #         request.session.pop("reset_email", None)
-    #         return redirect("login")
+        user = Location.objects.filter(email=email).first()
+        if not user:
+            return render(request, "reset_password.html", {"error": "Email not found"})
 
-    #     return render(request, "reset_password.html")
+        user.password = password
+        user.save()
+
+        request.session.pop("reset_email", None)
+        return redirect("login")
+
+    return render(request, "reset_password.html")
+

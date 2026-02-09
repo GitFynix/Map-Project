@@ -1,10 +1,34 @@
-<form method="post" action="{% url 'forgot_password' %}">
-  {% csrf_token %}
+{% load static %}
 
-  <input type="email" name="email" placeholder="Your email" required>
-  <button type="submit">Send code</button>
+<html>
+<head>
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
 
-  {% if error %}
-    <p>{{ error }}</p>
-  {% endif %}
-</form>
+<body>
+
+  <div class="register-box">   
+    <h1>Forgot Password</h1>
+    <p class="subtitle">Enter your email to receive a reset code</p>
+
+    <form method="post" action="{% url 'forgot_password' %}">
+      {% csrf_token %}
+
+      <input type="email" name="email" placeholder="Your email" required>
+
+      <button type="submit">Send Code</button>
+
+      {% if error %}
+        <p style="color: red; margin-top: 10px;">{{ error }}</p>
+      {% endif %}
+    </form>
+
+    <a href="{% url 'login' %}" class="loginpage">
+      Back to Login
+    </a>
+
+  </div>
+
+</body>
+</html>
