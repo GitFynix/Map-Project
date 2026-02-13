@@ -21,12 +21,13 @@ def register(request):
             send_otp(user.email)
             
             request.session["verify_email"] = user.email
+            
 
             return redirect("verify_code")
             
             # Get
     else:
-        form = RegisterForm(request.GET)
+        form = RegisterForm()
 
     return render(request, "register.html", {"form": form})
 
