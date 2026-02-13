@@ -8,6 +8,7 @@ from .utils import send_otp
 
 # Registrierung  + OTP senden
 def register(request):
+    # Post
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -17,13 +18,14 @@ def register(request):
 
             # OTP senden
             send_otp(user.email)
-
             
             request.session["verify_email"] = user.email
 
             return redirect("verify_code")
+            
+            # Get
     else:
-        form = RegisterForm()
+        form = RegisterForm(request.GET)
 
     return render(request, "register.html", {"form": form})
 
@@ -72,25 +74,33 @@ def verify_code(request):
 
 def login(request):
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        form = LoginForm(request.POST)
 
-        user = Location.objects.filter(email=email, password=password).first()
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
 
-        if not user:
-            return render(request, "login.html", {"error": "Wrong email or password"})
+            user = Location.objects.filter(email=email, password=password).first()
 
-        if not user.is_verified:
-            request.session["verify_email"] = user.email
-            send_otp(user.email)
-            return redirect("verify_code")
+            if not user:
+                return render(request, "login.html", {"form": form, "error": "Wrong email or password"})
 
-        # login ok
-        request.session["user_email"] = user.email
-        return redirect("home")
+            if not user.is_verified:
+                request.session["verify_email"] = user.email
+                send_otp(user.email)
+                return redirect("verify_code")
 
-    return render(request, "login.html")
+            
+            request.session["user_email"] = user.email
+            return redirect("home")
 
+       
+        return render(request, "login.html", {"form": form})
+
+    else:
+        form = LoginForm()
+
+    return render(request, "login.html", {"form": form})
 
 def index(request):
     if not request.session.get("user_email"):
@@ -112,7 +122,6 @@ def forgot_password(request):
         return redirect("verify_code")
 
     return render(request, "forgot.html")
-
 
 def reset_password(request):
     email = request.session.get("reset_email")
