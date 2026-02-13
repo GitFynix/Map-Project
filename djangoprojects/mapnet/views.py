@@ -4,6 +4,7 @@ from django.utils import timezone
 from .forms import RegisterForm
 from .models import Location, Emailotp
 from .utils import send_otp
+from .forms import LoginForm
 
 
 # Registrierung  + OTP senden
@@ -39,30 +40,47 @@ def verify_code(request):
     if request.method == "POST":
         code = request.POST.get("code")
 
-        otp = Emailotp.objects.filter(email=email, code=code).order_by("-created_at").first()
+        otp = (
+            Emailotp.objects
+            .filter(email=email, code=code)
+            .order_by("-created_at")
+            .first()
+        )
+
         if not otp:
             return render(request, "verify_code.html", {"error": "Wrong code"})
+
         if timezone.now() > otp.expires_at:
             return render(request, "verify_code.html", {"error": "Code expired"})
 
-        # Decide what this OTP is for
-        flow = request.session.get("otp_flow")
+      
+        Emailotp.objects.filter(email=email).delete()
 
+        flow = request.session.get("otp_flow", "verify")  # default verify
+
+        # RESET FLOW
         if flow == "reset":
-            # OTP ok -> go to reset password page
-            Emailotp.objects.filter(email=email).delete()
+            # ✅ reset page needs to know which email is resetting
+            request.session["reset_email"] = email
+
+            # clean current flow keys
             request.session.pop("verify_email", None)
             request.session.pop("otp_flow", None)
+
             return redirect("reset_password")
 
-        # normal verify (register/login)
-        user = Location.objects.get(email=email)
+        # NORMAL VERIFY FLOW (register/login)
+        user = Location.objects.filter(email=email).first()
+        if not user:
+            return render(request, "verify_code.html", {"error": "User not found"})
+
         user.is_verified = True
         user.save()
 
-        Emailotp.objects.filter(email=email).delete()
-
+        # login ok
         request.session["user_email"] = email
+
+        # clean
         request.session.pop("verify_email", None)
         request.session.pop("otp_flow", None)
 
@@ -115,10 +133,13 @@ def forgot_password(request):
         if not user:
             return render(request, "forgot.html", {"error": "Email not found"})
 
+        # OTP senden
         send_otp(email)
+
+        
         request.session["otp_flow"] = "reset"
         request.session["verify_email"] = email
-        request.session["reset_email"] = email
+
         return redirect("verify_code")
 
     return render(request, "forgot.html")
