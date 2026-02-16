@@ -10,7 +10,7 @@
 }
 
 /* Login */
-body {
+/*body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
@@ -22,7 +22,7 @@ body {
   align-items: center;
 
   color: rgb(255, 255, 255);
-}
+}*/
 
 .login-box {
   width: 320px;
@@ -111,7 +111,7 @@ body {
   box-sizing: border-box;
 }
 
-body {
+/*body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
@@ -123,7 +123,7 @@ body {
   align-items: center;
 
   color: rgb(255, 255, 255);
-}
+}*/
 
 .register-box {
   width: 320px;
@@ -197,5 +197,5 @@ body {
 .indexpage{
   height: 100%;
   margin: 0;
+  background: rgb(21, 169, 209);
 }
-
