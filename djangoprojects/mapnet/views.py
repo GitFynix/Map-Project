@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
-
 from .forms import RegisterForm
 from .models import Location, Emailotp
 from .utils import send_otp
@@ -14,7 +13,6 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_verified = False
             user.save()
 
             # OTP senden
