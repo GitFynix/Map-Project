@@ -2,8 +2,8 @@ from django import forms
 from .models import Location
 
 class RegisterForm(forms.ModelForm):
-    class Meta:
-        model = Location
+    class Meta: 
+        model = Locataion
         fields = ["name", "email", "password"]
 
 

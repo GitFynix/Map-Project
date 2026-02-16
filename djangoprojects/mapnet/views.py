@@ -30,6 +30,8 @@ def register(request):
     return render(request, "register.html", {"form": form})
 
 
+
+
 # OTP Code prüfen
 def verify_code(request):
     email = request.session.get("verify_email")
@@ -59,7 +61,7 @@ def verify_code(request):
 
         # RESET FLOW
         if flow == "reset":
-            # ✅ reset page needs to know which email is resetting
+            
             request.session["reset_email"] = email
 
             # clean current flow keys
@@ -89,6 +91,7 @@ def verify_code(request):
 
 
 
+
 def login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -97,7 +100,7 @@ def login(request):
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
 
-            user = Location.objects.filter(email=email, password=password).first()
+            user = Location.objects.filter(email=email, password=password).first() 
 
             if not user:
                 return render(request, "login.html", {"form": form, "error": "Wrong email or password"})
@@ -119,12 +122,20 @@ def login(request):
 
     return render(request, "login.html", {"form": form})
 
+
+
+
 def index(request):
+
+    
     if not request.session.get("user_email"):
         return redirect("login")
     return render(request, "index.html")
 
-def forgot_password(request):
+
+
+
+def forgot_password(request):    
     if request.method == "POST":
         email = request.POST.get("email")
 
@@ -142,6 +153,9 @@ def forgot_password(request):
         return redirect("verify_code")
 
     return render(request, "forgot.html")
+
+
+
 
 def reset_password(request):
     email = request.session.get("reset_email")
