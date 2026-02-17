@@ -3,8 +3,6 @@ __pycache__/
 *.py[cod]
 *.pyc
 
-# Django
-db.sqlite3
 
 # VS Code
 .vscode/
@@ -13,5 +11,8 @@ db.sqlite3
 venv/
 .env
 
-#sqlite
 db.sqlite3
+*.sqlite3
+**/db.sqlite3
+__pycache__/
+*.pyc
