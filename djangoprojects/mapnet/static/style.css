@@ -198,6 +198,11 @@ body {
   height: 100%;
   margin: 0;
   background: rgb(21, 169, 209);
+  overflow: hidden;           /*removes scrollbars*/
 }
 
+/*removing leaflet logo */
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
 

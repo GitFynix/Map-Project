@@ -11,16 +11,29 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-     const map = L.map("map", {
-    crs: L.CRS.Simple,
-    minZoom: -2,
-    maxZoom: 4
-  });
-      
     const bounds = [[0, 0], [4096, 4096]];
 
+    //makes map
+    const map = L.map("map", {
+      crs: L.CRS.Simple,
+      minZoom: -2,
+      maxZoom: 4,
+      zoomSnap: 0.1,
+      zoomDelta: 0.5,
+      inertia: true,
+      inertiaDeceleration: 3000,
+      easeLinearity: 0.2
+    });
+
+    // slower scrollin
+    map.scrollWheelZoom.enable();
+    map.options.zoomSnap = 0.1;
+    map.options.zoomDelta = 0.3;
+
     L.imageOverlay("{% static 'gta_map.jpg' %}", bounds).addTo(map);
+
     map.fitBounds(bounds);
   </script>
 </body>
 </html>
+
